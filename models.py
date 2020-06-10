@@ -1,10 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
-from app import app
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
-db = SQLAlchemy(app)
+from .app import db
 
 
 class BlogPost(db.Model):

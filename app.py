@@ -1,7 +1,13 @@
 from flask import Flask, render_template, request, redirect
-from models import BlogPost, db
+from models import BlogPost
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost/posts'
+db = SQLAlchemy(app)
 
 
 @app.route('/')
@@ -9,7 +15,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/posts')
+@app.route('/posts/')
 def posts():
     posts = BlogPost.query.order_by(BlogPost.date_posted).all()
     return render_template('posts.html', posts=posts)
